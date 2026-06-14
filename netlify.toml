@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+  functions = "functions"
+
+# AI画像生成は30秒以上かかる場合があるため、Functionのタイムアウトを延長
+# （プランによって上限が異なります。上限を超える値は無視されます）
+[functions]
+  node_bundler = "esbuild"
+
+[functions.generate-image]
+  timeout = 30
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/manifest+json"
